@@ -1,10 +1,8 @@
 class colors:
-    """Colors class:reset all colors with colors.reset; two  
-    sub classes fg for foreground  
-    and bg for background; use as colors.subclass.colorname. 
-    i.e. colors.fg.red or colors.bg.greenalso, the generic bold, disable,  
-    underline, reverse, strike through, 
-    and invisible work with the main class i.e. colors.bold"""
+    """
+        ANSI color support for printing
+        Source: https://www.geeksforgeeks.org/print-colors-python-terminal/
+    """
 
     reset = "\033[0m"
     bold = "\033[01m"
