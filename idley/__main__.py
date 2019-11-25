@@ -1,26 +1,31 @@
 import itertools
 from colors import colors
-from typing import Callable, Dict, Any
+from typing import Callable, Dict, Any, Tuple
 
 
 class Prompt:
     @staticmethod
-    def input(i):
+    def hello() -> str:
+        idley = colors.wrap(f"IDLEy", colors.bold)
+        return f"\n... Here's a steaming new {idley} ⚪  for you ...\n"
+
+    @staticmethod
+    def input(i: int) -> str:
         return colors.wrap(f"In [{i}]:", colors.fg.lightgreen)
 
     @staticmethod
-    def output(i, result):
+    def output(i: int, result: Any) -> str:
         prompt = colors.wrap(f"Out [{i}]:", colors.fg.orange)
         result = colors.wrap(result, colors.fg.darkgrey)
         return prompt + result
 
     @staticmethod
-    def error(e):
+    def error(e: Exception) -> str:
         error_class = colors.wrap(f"{e.__class__.__name__}", colors.fg.red)
         return f"{error_class}: {e}"
 
 
-def get_user_input():
+def get_user_input() -> Tuple[int, str]:
     """
         Keep an infinite line counter
         Ignore keyboard interrupt but respect attempts to quit
@@ -61,7 +66,9 @@ def exec_user_input(
     return user_globals
 
 
-def save_user_globals(user_globals, path="/tmp/user_globals.tmp"):
+def save_user_globals(
+    user_globals: Dict[str, Any], path: str = "/tmp/user_globals.tmp"
+) -> None:
     with open(path, "w") as f:
         for key, val in user_globals.items():
             if key.startswith("__") and key.endswith("__"):
@@ -69,7 +76,8 @@ def save_user_globals(user_globals, path="/tmp/user_globals.tmp"):
             f.write(f"{key}={val} ({val.__class__.__name__})\n")
 
 
-def main():
+def main() -> None:
+    print(Prompt.hello())
     user_globals = {}
     save_user_globals(user_globals)
 
